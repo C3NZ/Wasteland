@@ -1,7 +1,8 @@
 import {Config} from './Config.js';
 
 class Caravan {
-    constructor(stats) {
+    constructor(game, stats) {
+       this.game = game;
        init(stats);
     }
 
@@ -64,5 +65,4 @@ class Caravan {
         }
     }
 }
-
 

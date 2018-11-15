@@ -1,3 +1,7 @@
+import {Caravan} from './Caravan.js';
+import {UI} from './UI.js';
+import {Event} from './Event.js';
+
 function startGame(stats) {
     if(stats) {
         const game = new Game(stats);
@@ -17,6 +21,11 @@ function startGame(stats) {
 
 class Game {
     constructor(stats){
-        this.caravan = new Caravan(stats);
+        this.ui = new UI(this);
+        this.eventManager = new Event(this)
+        this.caravan = new Caravan(this, stats);
+    }
+    init() {
+
     }
 }
