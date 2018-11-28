@@ -1,9 +1,9 @@
 import {Config} from './Config.js';
 
-class Caravan {
+export class Caravan {
     constructor(game, stats) {
        this.game = game;
-       init(stats);
+       this.init(stats);
     }
 
     init({day, distance, travelers, food, oxen, money, firepower}) {
@@ -24,7 +24,6 @@ class Caravan {
         //set the capacity and the current weight of the Caravan
         this.capacity = this.oxen * Config.WEIGHT_PER_OX + this.travelers * Config.WEIGHT_PER_PERSON;
         this.weight = this.food * Config.FOOD_WEIGHT + this.firepower * Config.FIREPOWER_WEIGHT;
-
         //While you're overencumbered, drop all your firepower first to hopefully stay within your capacity
         while(this.firepower && this.capacity <= this.weight) {
             this.firepower--;
@@ -58,7 +57,7 @@ class Caravan {
     
     //Consume food per person aboard the caravan
     consumeFood(){
-        this.food -= this.crew * Config.FOOD_PER_PERSON; 
+        this.food -= this.travelers * Config.FOOD_PER_PERSON; 
         
         if(this.food < 0) {
             this.food = 0;
