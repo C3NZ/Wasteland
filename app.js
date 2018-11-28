@@ -4,6 +4,6 @@ const app = express();
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 
-app.listen(3000, () => {
+app.listen(2500, () => {
     console.log("App is listening on port 3000");
 })
