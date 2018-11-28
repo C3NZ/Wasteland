@@ -1,4 +1,4 @@
-class UI {
+export class UI {
     constructor(game){
         this.game = game;
     }
