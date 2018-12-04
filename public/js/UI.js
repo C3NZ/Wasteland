@@ -1,12 +1,15 @@
-export class UI {
-    constructor(game){
+class UI {
+    constructor(game) {
         this.game = game;
     }
+
     notify(message, type) {
-        console.log(message + ' - ' + type)
+        console.log(`${message} - ${type}`)
     }
 
-    refreshStats(){
+    refreshStats() {
         console.log(this.game.caravan)
     }
 }
+
+export default UI;
