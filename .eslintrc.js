@@ -1,6 +1,11 @@
 module.exports = {
     "extends": "airbnb-base",
+    "env": {
+        "browser": true,
+        "node": true,
+        "mocha": true,
+    },
     "rules": {
-        "indent": [2, 4]
+        "indent": [2, 4],
     }
 };
