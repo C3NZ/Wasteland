@@ -1,6 +1,6 @@
-import { Config } from './Config';
+import { Config } from './Config.js';
 
-class Caravan {
+export class Caravan {
     constructor(game, stats) {
         this.game = game;
         this.init(stats);

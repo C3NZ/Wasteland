@@ -1,3 +1,7 @@
+const eventTypes = [
+
+]
+
 class Event {
     constructor(game) {
         this.game = game;

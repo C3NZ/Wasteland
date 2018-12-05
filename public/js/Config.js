@@ -1,4 +1,4 @@
-class Config {}
+export class Config {}
 
 Config.WEIGHT_PER_OX = 20;
 Config.WEIGHT_PER_PERSON = 2;
@@ -14,4 +14,4 @@ Config.EVENT_PROBABILITY = 0.15;
 Config.ENEMY_FIREPOWER_AVG = 5;
 Config.ENEMY_GOLD_AVG = 50;
 
-export default Config;
+export default { Config };

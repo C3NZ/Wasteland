@@ -57,6 +57,21 @@ body {
     overflow-y: scroll;
 }
 
+.stat-value {
+    float: right;
+}
+
+#updates-area {
+    background-color: white;
+    float: left;
+    width: 350px;
+    margin: 10px;
+    height: 150px;
+    padding: 10px;
+    font-size: 12px;
+    overflow-y: scroll;
+}
+
 .update-positive {
     color: #669966;
 }

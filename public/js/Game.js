@@ -1,7 +1,7 @@
-import Caravan from './Caravan';
-import { UI } from './UI';
-import Event from './Event';
-import Config from './Config';
+import { Caravan } from './Caravan.js';
+import { UI } from './UI.js';
+import { Event } from './Event.js';
+import { Config } from './Config.js';
 
 // Function to start the game with or without pre defined
 // stats
@@ -97,7 +97,10 @@ class Game {
             this.running = false;
         }
 
-        // Random event logic will go here
+        // Generate a random event depending on Math.randoms output
+        if (Math.random() <= Config.EVENT_PROBABILITY) {
+            this.eventManager.generateEvent();
+        }
     }
 
     // Pause the journey
