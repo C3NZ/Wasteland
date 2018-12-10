@@ -15,7 +15,6 @@ function startGame(stats) {
         coins: 300,
         firepower: 2,
     };
-    console.log(Config.FINAL_DISTANCE)
     // eslint-disable-next-line
     const game = new Game(gameStats);
 }

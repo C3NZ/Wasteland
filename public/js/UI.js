@@ -53,7 +53,7 @@ export class UI {
         const { firepower, coins } = this;
 
         const damage = Math.ceil(Math.max(0,
-            firepower * 2 * Math.random() - this.game.caravan.firepower));
+            firepower * 2 * Math.random() - this.game.mario.firepower));
 
         if (damage < this.game.mario.lives) {
             this.game.mario.lives -= damage;
@@ -74,7 +74,7 @@ export class UI {
 
         const damage = Math.ceil(Math.max(0, firepower * Math.random() / 2));
 
-        if (damage < this.game.mario.crew) {
+        if (damage < this.game.mario.lives) {
             this.game.mario.crew -= damage;
             this.notify(`${damage} lives were lost fighting`, 'negative');
         } else {

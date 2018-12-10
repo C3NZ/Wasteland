@@ -58,7 +58,7 @@ export class Mario {
     // Update the distance based on the speed the user is traveling
     updateDistance() {
         const diff = this.capacity - this.weight;
-        const speed = (Config.SLOW_SPEED + diff) / (this.capacity * Config.FULL_SPEED);
+        const speed = (Config.SLOW_SPEED + diff + 300) / (this.capacity * Config.FULL_SPEED);
         this.distance += speed;
     }
 
