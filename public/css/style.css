@@ -9,6 +9,7 @@ body {
     height: 100%;
     overflow: hidden;
     font-family: Courier;
+    background-color: black;
 }
 
 .hidden {
@@ -19,9 +20,25 @@ body {
     background-color: red;
 }
 
+#game-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#traveling-screen {
+    display: block; 
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
 #journey {
+    margin-top: 60px;
+    display: block;
     height: 100%;
-    background-color: #5F9FFF;
+    background-color: black;
 }
 
 #event {
@@ -37,12 +54,15 @@ body {
 
 #trees {
     width: 100%;
+    height: 100%;
     image-rendering: pixelated;
 }
 
 #caravan {
+    float: left;
     position: absolute;
-    bottom: 30px;
+    height: 60px;
+    bottom: 160px;
     left: 0;
 }
 
