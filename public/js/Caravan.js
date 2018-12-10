@@ -1,6 +1,6 @@
 import { Config } from './Config.js';
 
-export class Caravan {
+export class Mario {
     constructor(game, stats) {
         this.game = game;
         this.init(stats);
@@ -8,13 +8,13 @@ export class Caravan {
 
     // Init function for starting our game
     // eslint-disable-next-line
-    init({ day, distance, travelers, food, oxen, money, firepower }) {
+    init({ day, distance, lives, food, toads, coins, firepower }) {
         this.day = day;
         this.distance = distance;
-        this.travelers = travelers;
+        this.lives = lives;
         this.food = food;
-        this.oxen = oxen;
-        this.money = money;
+        this.toads = toads;
+        this.coins = coins;
         this.firepower = firepower;
     }
 
@@ -24,8 +24,8 @@ export class Caravan {
         let droppedGuns = 0;
 
         // set the capacity and the current weight of the Caravan
-        this.capacity = this.oxen * Config.WEIGHT_PER_OX
-                        + this.travelers * Config.WEIGHT_PER_PERSON;
+        this.capacity = this.toads * Config.WEIGHT_PER_OX
+                        + this.lives * Config.WEIGHT_PER_PERSON;
 
         this.weight = this.food * Config.FOOD_WEIGHT + this.firepower * Config.FIREPOWER_WEIGHT;
 
@@ -39,7 +39,7 @@ export class Caravan {
 
         // Notify the player of dropped items
         if (droppedGuns) {
-            this.ui.notify(`Left ${droppedGuns} guns behind`, 'negative');
+            this.game.ui.notify(`Left ${droppedGuns} guns behind`, 'negative');
         }
 
         // If you're still overencumbered, start dropping
@@ -51,7 +51,7 @@ export class Caravan {
         }
 
         if (droppedFood) {
-            this.ui.notify(`Left ${droppedFood} pieces of food behind`, 'negative');
+            this.game.ui.notify(`Left ${droppedFood} pieces of food behind`, 'negative');
         }
     }
 
@@ -64,7 +64,7 @@ export class Caravan {
 
     // Consume food per person aboard the caravan
     consumeFood() {
-        this.food -= this.travelers * Config.FOOD_PER_PERSON;
+        this.food -= this.lives * Config.FOOD_PER_PERSON;
 
         if (this.food < 0) {
             this.food = 0;
@@ -72,4 +72,4 @@ export class Caravan {
     }
 }
 
-export default Caravan;
+export default Mario;

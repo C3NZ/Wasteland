@@ -1,4 +1,4 @@
-import { Caravan } from './Caravan.js';
+import { Mario } from './Caravan.js';
 import { UI } from './UI.js';
 import { Event } from './Event.js';
 import { Config } from './Config.js';
@@ -9,13 +9,13 @@ function startGame(stats) {
     const gameStats = stats || {
         day: 0,
         distance: 0,
-        travelers: 30,
+        lives: 30,
         food: 80,
-        oxen: 2,
-        money: 300,
+        toads: 2,
+        coins: 300,
         firepower: 2,
     };
-
+    console.log(Config.FINAL_DISTANCE)
     // eslint-disable-next-line
     const game = new Game(gameStats);
 }
@@ -24,7 +24,7 @@ class Game {
     constructor(stats) {
         this.ui = new UI(this);
         this.eventManager = new Event(this);
-        this.caravan = new Caravan(this, stats);
+        this.mario = new Mario(this, stats);
         // this.world = new World()
         this.init();
     }
@@ -68,31 +68,31 @@ class Game {
 
     update() {
         // Update the day and consume food
-        this.caravan.day += Config.DAY_PER_STEP;
-        this.caravan.consumeFood();
+        this.mario.day += Config.DAY_PER_STEP;
+        this.mario.consumeFood();
 
         // End the game if there is no more food
-        if (this.caravan.food === 0) {
+        if (this.mario.food === 0) {
             this.ui.notify('Your caravan has starved to death', 'negative');
             this.running = false;
             return;
         }
 
         // update weight, distance, and visual stats
-        this.caravan.updateWeight();
-        this.caravan.updateDistance();
+        this.mario.updateWeight();
+        this.mario.updateDistance();
         this.ui.refreshStats();
 
         // End game if there are no more travelers
-        if (this.caravan.travelers <= 0) {
-            this.caravan.travelers = 0;
+        if (this.mario.lives <= 0) {
+            this.mario.lives = 0;
             this.ui.notify('Everyone has died', 'negative');
             this.running = false;
             return;
         }
 
         // End game if there we have reached our end distance
-        if (this.caravan.distance >= Config.FINAL_DISTANCE) {
+        if (this.mario.distance >= Config.FINAL_DISTANCE) {
             this.ui.notify('You have made it across the wasteland!', 'positive');
             this.running = false;
         }

@@ -4,98 +4,98 @@ const eventTypes = [
     {
         type: 'STAT-CHANGE',
         notification: 'negative',
-        stat: 'travelers',
+        stat: 'lives',
         value: -3,
-        text: 'Irradiated food. Casualties: ',
+        text: 'You got stomped by a Goomba. Lives lost: ',
     },
     {
         type: 'STAT-CHANGE',
         notification: 'negative',
-        stat: 'travelers',
+        stat: 'lives',
         value: -4,
-        text: 'Rad-x withdrawal, Casualties: ',
+        text: 'You got hit by a sheel. Lives lost: ',
     },
     {
         type: 'STAT-CHANGE',
         notification: 'negative',
         stat: 'food',
         value: -3,
-        text: 'Rad Roach infestation, Casualties',
+        text: 'Baby bowser stole some of your food while you were sleeping. Food lost: ',
     },
     {
         type: 'STAT-CHANGE',
         notification: 'negative',
-        stat: 'money',
+        stat: 'coins',
         value: -50,
-        text: 'Bandits rob the Caravan, they stole $',
+        text: 'Koopa kid jumped on your head! coins lost: ',
     },
     {
         type: 'STAT-CHANGE',
         notification: 'negative',
-        stat: 'oxen',
+        stat: 'toads',
         value: -1,
-        text: 'Your oxen drank irradiated water. Casualties: ',
+        text: 'You had to use a toad to jump over a barracade. toads lost:  ',
     },
     {
         type: 'STAT-CHANGE',
         notification: 'positive',
         stat: 'food',
         value: 20,
-        text: 'Came across an abandonded gas station with food in it. Food added: ',
+        text: 'You found a block with some food in it! Food gained: ',
     },
     {
         type: 'STAT-CHANGE',
         notification: 'positive',
-        stat: 'oxen',
+        stat: 'toads',
         value: 1,
-        text: 'Came across tame wild oxen. New oxen: ',
+        text: 'You found a tied up toad along the way! Mushrooms gained: ',
     },
     {
         type: 'ATTACK',
         notification: 'negative',
-        text: 'Bandits are attacking!',
+        text: 'The Goombas are launching an assault!',
     },
     {
         type: 'ATTACK',
         notification: 'negative',
-        text: 'Bandits are attacking!',
+        text: 'The goombas are launching an assault!',
     },
     {
         type: 'ATTACK',
         notification: 'negative',
-        text: 'Bandits are attacking!',
+        text: 'The goombas are launching an assault!',
     },
     {
         type: 'SHOP',
         notification: 'neutral',
-        text: 'You have found another caravan!',
+        text: 'You have found Luigi looking to trade!',
         products: [
             { item: 'food', qty: 20, price: 50 },
-            { item: 'oxen', qty: 1, price: 200 },
+            { item: 'toads', qty: 1, price: 200 },
             { item: 'firepower', qty: 2, price: 50 },
-            { item: 'crew', qty: 10, price: 80 },
+            { item: 'lives', qty: 10, price: 80 },
         ],
     },
     {
         type: 'SHOP',
         notification: 'neutral',
-        text: 'You have found another caravan!',
+        text: 'You have found a friendly toad shop!',
         products: [
             { item: 'food', qty: 30, price: 50 },
-            { item: 'oxen', qty: 1, price: 200 },
+            { item: 'toads', qty: 1, price: 200 },
             { item: 'firepower', qty: 2, price: 20 },
-            { item: 'crew', qty: 10, price: 60 },
+            { item: 'lives', qty: 10, price: 60 },
         ],
     },
     {
         type: 'SHOP',
         notification: 'neutral',
-        text: 'You have come across !',
+        text: 'Some rogue goombas are looking to trade!',
         products: [
             { item: 'food', qty: 20, price: 60 },
-            { item: 'oxen', qty: 1, price: 300 },
+            { item: 'toads', qty: 1, price: 300 },
             { item: 'firepower', qty: 2, price: 80 },
-            { item: 'crew', qty: 5, price: 60 },
+            { item: 'lives', qty: 5, price: 60 },
         ],
     },
 ];
@@ -103,7 +103,6 @@ const eventTypes = [
 export class Event {
     constructor(game) {
         this.game = game;
-        this.caravan = game.caravan;
         this.ui = game.ui;
     }
 
@@ -126,8 +125,8 @@ export class Event {
 
     // Handle a state change that occurs on a caravan
     stateChangeEvent(eventData) {
-        if (eventData.value + this.game.caravan[eventData.stat] >= 0) {
-            this.game.caravan[eventData.stat] += eventData.value;
+        if (eventData.value + this.game.mario[eventData.stat] >= 0) {
+            this.game.mario[eventData.stat] += eventData.value;
             this.ui.notify(eventData.text + Math.abs(eventData.value), eventData.notification);
         }
     }
@@ -135,9 +134,9 @@ export class Event {
     // Handle a attack event occurring to the caravan
     attackEvent(eventData) {
         const firepower = Math.round((0.7 + 0.6 * Math.random()) * Config.ENEMY_FIREPOWER_AVG);
-        const gold = Math.round((0.7 + 0.6 * Math.random()) * Config.ENEMY_GOLD_AVG);
+        const coins = Math.round((0.7 + 0.6 * Math.random()) * Config.ENEMY_GOLD_AVG);
 
-        this.ui.showAttack(firepower, gold);
+        this.ui.showAttack(firepower, coins);
     }
 
     // Handle a shop event occurring

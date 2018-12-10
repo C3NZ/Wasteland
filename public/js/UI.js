@@ -7,36 +7,36 @@ export class UI {
 
     // Notify the user of an update
     notify(message, type) {
-        const { caravan } = this.game;
+        const { mario } = this.game;
         document.getElementById('updates-area').innerHTML = `
-            <div class="update-${type}">Day ${Math.ceil(caravan.day)}: ${message}</div>
+            <div class="update-${type}">Day ${Math.ceil(mario.day)}: ${message}</div>
             ${document.getElementById('updates-area').innerHTML}
         `;
     }
 
     // Refresh the stats to be displayed on screen
     refreshStats() {
-        const { caravan } = this.game;
-        document.getElementById('stat-day').innerHTML = Math.ceil(caravan.day);
-        document.getElementById('stat-distance').innerHTML = Math.floor(caravan.distance);
-        document.getElementById('stat-crew').innerHTML = caravan.travelers;
-        document.getElementById('stat-oxen').innerHTML = caravan.oxen;
-        document.getElementById('stat-food').innerHTML = Math.ceil(caravan.food);
-        document.getElementById('stat-money').innerHTML = caravan.money;
-        document.getElementById('stat-firepower').innerHTML = caravan.firepower;
-        document.getElementById('stat-weight').innerHTML = `${caravan.weight} / ${caravan.capacity}`;
+        const { mario } = this.game;
+        document.getElementById('stat-day').innerHTML = Math.ceil(mario.day);
+        document.getElementById('stat-distance').innerHTML = Math.floor(mario.distance);
+        document.getElementById('stat-crew').innerHTML = mario.lives;
+        document.getElementById('stat-oxen').innerHTML = mario.toads;
+        document.getElementById('stat-food').innerHTML = Math.ceil(mario.food);
+        document.getElementById('stat-money').innerHTML = mario.coins;
+        document.getElementById('stat-firepower').innerHTML = mario.firepower;
+        document.getElementById('stat-weight').innerHTML = `${mario.weight} / ${mario.capacity}`;
 
         // Update the caravan positions
-        document.getElementById('caravan').style.left = `${380 * caravan.distance / Config.FINAL_DISTANCE}px`;
+        document.getElementById('caravan').style.left = `${380 * mario.distance / Config.FINAL_DISTANCE}px`;
     }
 
     // Show the player that they're being attacked by some savage bandits
-    showAttack(firepower, gold) {
+    showAttack(firepower, coins) {
         const attackDiv = document.getElementById('attack');
         attackDiv.classList.remove('hidden');
 
         this.firepower = firepower;
-        this.gold = gold;
+        this.coins = coins;
 
         document.getElementById('attack-description').innerHTML = `firepower: ${firepower}`
 
@@ -50,18 +50,18 @@ export class UI {
     }
 
     fight() {
-        const { firepower, gold } = this;
+        const { firepower, coins } = this;
 
         const damage = Math.ceil(Math.max(0,
             firepower * 2 * Math.random() - this.game.caravan.firepower));
 
-        if (damage < this.game.caravan.crew) {
-            this.game.caravan.crew -= damage;
-            this.game.caravan.money += gold;
+        if (damage < this.game.mario.lives) {
+            this.game.mario.lives -= damage;
+            this.game.mario.coins += coins;
             this.notify(`${damage} people were killed fighting`, 'notify');
-            this.notify(`Found $${gold}`, 'gold');
+            this.notify(`Found $${coins}`, 'gold');
         } else {
-            this.game.caravan.crew = 0;
+            this.game.mario.crew = 0;
             this.notify('Everybody died in the fight', 'negative');
         }
 
@@ -74,15 +74,15 @@ export class UI {
 
         const damage = Math.ceil(Math.max(0, firepower * Math.random() / 2));
 
-        if (damage < this.game.caravan.crew) {
-            this.game.caravan.crew -= damage;
-            this.notify(`${damage} people were killed fighting`, 'negative');
+        if (damage < this.game.mario.crew) {
+            this.game.mario.crew -= damage;
+            this.notify(`${damage} lives were lost fighting`, 'negative');
         } else {
-            this.game.caravan.crew = 0;
-            this.notify('Everybody died running away', 'negative');
+            this.game.mario.lives = 0;
+            this.notify('You died at the hands of fighting', 'negative');
+            this.game.running = false;
         }
 
-        document.getElementById('runaway').removeEventListener('click');
         document.getElementById('attack').classList.add('hidden');
 
         this.game.resumeJourney();
@@ -125,16 +125,16 @@ export class UI {
 
     // buy product from the shop if the user has enough money
     buyProduct(product) {
-        if (product.price > this.game.caravan.money) {
+        if (product.price > this.game.mario.coins) {
             this.notify('Not enough money', 'negative');
             return false;
         }
 
-        this.game.caravan.money -= product.price;
-        this.game.caravan[product.item] += +product.qty;
+        this.game.mario.coins -= product.price;
+        this.game.mario[product.item] += +product.qty;
         this.notify(`Bought ${product.qty} x ${product.item}`, 'positive');
 
-        this.game.caravan.updateWeight();
+        this.game.mario.updateWeight();
         this.refreshStats();
         return true;
     }
