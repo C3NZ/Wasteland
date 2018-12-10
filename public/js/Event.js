@@ -53,17 +53,17 @@ const eventTypes = [
     {
         type: 'ATTACK',
         notification: 'negative',
-        text: 'Bandits are attacking!'
+        text: 'Bandits are attacking!',
     },
     {
         type: 'ATTACK',
         notification: 'negative',
-        text: 'Bandits are attacking!'
+        text: 'Bandits are attacking!',
     },
     {
         type: 'ATTACK',
         notification: 'negative',
-        text: 'Bandits are attacking!'
+        text: 'Bandits are attacking!',
     },
     {
         type: 'SHOP',

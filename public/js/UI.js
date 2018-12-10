@@ -50,10 +50,10 @@ export class UI {
     }
 
     fight() {
-        const firepower = this.firepower;
-        const gold = this.firepower;
+        const { firepower, gold } = this;
 
-        const damage = Math.ceil(Math.max(0, firepower * 2 * Math.random() - this.game.caravan.firepower));
+        const damage = Math.ceil(Math.max(0,
+            firepower * 2 * Math.random() - this.game.caravan.firepower));
 
         if (damage < this.game.caravan.crew) {
             this.game.caravan.crew -= damage;
@@ -70,7 +70,7 @@ export class UI {
     }
 
     runaway() {
-        const firepower = this.firepower;
+        const { firepower } = this;
 
         const damage = Math.ceil(Math.max(0, firepower * Math.random() / 2));
 
@@ -88,6 +88,7 @@ export class UI {
         this.game.resumeJourney();
     }
 
+    // Show the shop and all the possible items randomly selected from the shop owners inventory
     showShop(products) {
         const shopDiv = document.getElementById('shop');
         shopDiv.classList.remove('hidden');
@@ -95,7 +96,7 @@ export class UI {
         if (!this.shopInitiated) {
             shopDiv.addEventListener('click', function(e) {
                 const target = e.target || e.src;
-                
+
                 // Exit button
                 if (target.tagName === 'BUTTON') {
                     shopDiv.classList.add('hidden');
@@ -121,8 +122,8 @@ export class UI {
             prodsDiv.innerHTML += `<div class="product" data-qty="${product.qty}" data-item="${product.item}" data-price="${product.price}"> ${product.qty} ${product.item} - $ ${product.price}</div>`;
         }
     }
-    
-    // buy product
+
+    // buy product from the shop if the user has enough money
     buyProduct(product) {
         if (product.price > this.game.caravan.money) {
             this.notify('Not enough money', 'negative');
