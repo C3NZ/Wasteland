@@ -115,7 +115,7 @@ export class Event {
         } else if (eventData.type === 'ATTACK') {
             this.game.pauseJourney();
             this.ui.notify(eventData.text, eventData.notification);
-            this.attackEvent(eventData);
+            this.attackEvent();
         } else if (eventData.type === 'SHOP') {
             this.game.pauseJourney();
             this.ui.notify(eventData.text, eventData.notifcation);
@@ -132,7 +132,7 @@ export class Event {
     }
 
     // Handle a attack event occurring to the caravan
-    attackEvent(eventData) {
+    attackEvent() {
         const firepower = Math.round((0.7 + 0.6 * Math.random()) * Config.ENEMY_FIREPOWER_AVG);
         const coins = Math.round((0.7 + 0.6 * Math.random()) * Config.ENEMY_GOLD_AVG);
 

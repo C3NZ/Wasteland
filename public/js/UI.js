@@ -61,7 +61,7 @@ export class UI {
             this.notify(`${damage} people were killed fighting`, 'notify');
             this.notify(`Found $${coins}`, 'gold');
         } else {
-            this.game.mario.crew = 0;
+            this.game.mario.lives = 0;
             this.notify('Everybody died in the fight', 'negative');
         }
 
